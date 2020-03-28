@@ -1,8 +1,7 @@
 require 'spec_helper'
 
 describe 'TwoFactorAuthenticator' do
-  include CASino::Engine.routes.url_helpers
-
+  #include CASino::Engine.routes.url_helpers
   subject { page }
 
   context 'when logged in' do

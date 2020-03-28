@@ -25,4 +25,7 @@ end
 
 RSpec.configure do |config|
   config.include FeatureHelpers, type: :feature
+  config.before :each, type: :feature do
+    helper.class.include CASino::Engine.routes.url_helpers
+  end
 end

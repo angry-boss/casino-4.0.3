@@ -1,7 +1,7 @@
-require 'spec_helper'
-
-require 'casino/authenticator'
-
+require_relative '../../spec_helper'
+require_relative '../../../lib/casino/authenticator'
+#require 'casino/authenticator'
+#require 'spec_helper'
 describe CASino::Authenticator do
   subject {
     CASino::Authenticator.new

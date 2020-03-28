@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe CASino::AuthTokensController do
-  include CASino::Engine.routes.url_helpers
+  #include CASino::Engine.routes.url_helpers
+  routes { CASino::Engine.routes }
 
   let(:params) { { } }
   let(:request_options) { params.merge(use_route: :casino) }

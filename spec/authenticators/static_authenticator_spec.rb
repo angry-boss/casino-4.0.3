@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'casino/static_authenticator'
 
 describe CASino::StaticAuthenticator do
   subject {

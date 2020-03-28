@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 shared_examples_for 'a service ticket validator' do
-  include CASino::Engine.routes.url_helpers
+  #include CASino::Engine.routes.url_helpers
+  routes { CASino::Engine.routes }
   let(:request_options) { params.merge(use_route: :casino) }
   let(:service_ticket) { FactoryBot.create :service_ticket }
   let(:service) { service_ticket.service }

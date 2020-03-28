@@ -10,6 +10,30 @@ module CASino
     initializer :yaml_configuration do |app|
       apply_yaml_config load_file('config/cas.yml')
     end
+    config.autoload_paths << File.expand_path("lib", __dir__)
+    # CASino::Engine.routes.draw do
+    #   mount CASino::API => '/api'
+    #
+    #   resources :sessions, only: [:index, :destroy]
+    #   resources :two_factor_authenticators, only: [:new, :create, :destroy]
+    #
+    #   get 'login' => 'sessions#new'
+    #   post 'login' => 'sessions#create'
+    #   get 'logout' => 'sessions#logout'
+    #   post 'validate_otp' => 'sessions#validate_otp'
+    #
+    #   get 'destroy-other-sessions' => 'sessions#destroy_others'
+    #
+    #   get 'validate' => 'service_tickets#validate'
+    #   get 'serviceValidate' => 'service_tickets#service_validate'
+    #
+    #   get 'proxyValidate' => 'proxy_tickets#proxy_validate'
+    #   get 'proxy' => 'proxy_tickets#create'
+    #
+    #   get 'authTokenLogin' => 'auth_tokens#login'
+    #
+    #   root to: redirect('login')
+    # end
 
     private
     def apply_yaml_config(yaml)

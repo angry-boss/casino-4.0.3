@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'Session overview' do
-  include CASino::Engine.routes.url_helpers
+  #include CASino::Engine.routes.url_helpers
 
   subject { page }
 
