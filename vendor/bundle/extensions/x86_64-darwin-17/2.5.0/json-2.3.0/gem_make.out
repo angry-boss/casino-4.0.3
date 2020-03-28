@@ -1,0 +1,13 @@
+current directory: /Users/ilmira/Documents/CASinoApp/vendor/gems_dev/casino-4.0.3/vendor/bundle/gems/json-2.3.0/ext/json
+/Users/ilmira/.rvm/rubies/ruby-2.5.5/bin/ruby -I /Users/ilmira/.rvm/rubies/ruby-2.5.5/lib/ruby/site_ruby/2.5.0 -r ./siteconf20200327-89489-18w8hth.rb extconf.rb
+creating Makefile
+
+current directory: /Users/ilmira/Documents/CASinoApp/vendor/gems_dev/casino-4.0.3/vendor/bundle/gems/json-2.3.0/ext/json
+make "DESTDIR=" clean
+
+current directory: /Users/ilmira/Documents/CASinoApp/vendor/gems_dev/casino-4.0.3/vendor/bundle/gems/json-2.3.0/ext/json
+make "DESTDIR="
+make: Nothing to be done for `all'.
+
+current directory: /Users/ilmira/Documents/CASinoApp/vendor/gems_dev/casino-4.0.3/vendor/bundle/gems/json-2.3.0/ext/json
+make "DESTDIR=" install

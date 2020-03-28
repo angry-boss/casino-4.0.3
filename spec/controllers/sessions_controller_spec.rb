@@ -13,7 +13,7 @@ describe CASino::SessionsController do
   describe 'GET "new"' do
     context 'with a not allowed service' do
       before(:each) do
-        FactoryGirl.create :service_rule, :regex, url: '^https://.*'
+        FactoryBot.create :service_rule, :regex, url: '^https://.*'
       end
 
       let(:service) { 'http://www.example.org/' }
@@ -54,14 +54,14 @@ describe CASino::SessionsController do
     end
 
     context 'when logged in' do
-      let(:ticket_granting_ticket) { FactoryGirl.create :ticket_granting_ticket }
+      let(:ticket_granting_ticket) { FactoryBot.create :ticket_granting_ticket }
 
       before(:each) do
         sign_in(ticket_granting_ticket)
       end
 
       context 'when two-factor authentication is pending' do
-        let(:ticket_granting_ticket) { FactoryGirl.create :ticket_granting_ticket, :awaiting_two_factor_authentication }
+        let(:ticket_granting_ticket) { FactoryBot.create :ticket_granting_ticket, :awaiting_two_factor_authentication }
 
         it 'renders the new template' do
           get :new, request_options
@@ -173,7 +173,7 @@ describe CASino::SessionsController do
     end
 
     context 'with an expired login ticket' do
-      let(:expired_login_ticket) { FactoryGirl.create :login_ticket, :expired }
+      let(:expired_login_ticket) { FactoryBot.create :login_ticket, :expired }
       let(:params) { { lt: expired_login_ticket.ticket }}
 
       it 'renders the new template' do
@@ -183,7 +183,7 @@ describe CASino::SessionsController do
     end
 
     context 'with a valid login ticket' do
-      let(:login_ticket) { FactoryGirl.create :login_ticket }
+      let(:login_ticket) { FactoryBot.create :login_ticket }
       let(:params) { { lt: login_ticket.ticket }}
 
       context 'with invalid credentials' do
@@ -232,7 +232,7 @@ describe CASino::SessionsController do
 
         context 'with two-factor authentication enabled' do
           let!(:user) { CASino::User.create! username: username, authenticator: authenticator }
-          let!(:two_factor_authenticator) { FactoryGirl.create :two_factor_authenticator, user: user }
+          let!(:two_factor_authenticator) { FactoryBot.create :two_factor_authenticator, user: user }
 
           it 'renders the validate_otp template' do
             post :create, request_options
@@ -242,7 +242,7 @@ describe CASino::SessionsController do
 
         context 'with a not allowed service' do
           before(:each) do
-            FactoryGirl.create :service_rule, :regex, url: '^https://.*'
+            FactoryBot.create :service_rule, :regex, url: '^https://.*'
           end
           let(:service) { 'http://www.example.org/' }
 
@@ -343,7 +343,7 @@ describe CASino::SessionsController do
 
   describe 'POST "validate_otp"' do
     context 'with an existing ticket-granting ticket' do
-      let(:ticket_granting_ticket) { FactoryGirl.create :ticket_granting_ticket, :awaiting_two_factor_authentication }
+      let(:ticket_granting_ticket) { FactoryBot.create :ticket_granting_ticket, :awaiting_two_factor_authentication }
       let(:user) { ticket_granting_ticket.user }
       let(:tgt) { ticket_granting_ticket.ticket }
       let(:user_agent) { ticket_granting_ticket.user_agent }
@@ -352,7 +352,7 @@ describe CASino::SessionsController do
       let(:params) { { tgt: tgt, otp: otp, service: service }}
 
       context 'with an active authenticator' do
-        let!(:two_factor_authenticator) { FactoryGirl.create :two_factor_authenticator, user: user }
+        let!(:two_factor_authenticator) { FactoryBot.create :two_factor_authenticator, user: user }
 
         context 'with a valid OTP' do
           before(:each) do
@@ -385,7 +385,7 @@ describe CASino::SessionsController do
 
           context 'with a not allowed service' do
             before(:each) do
-              FactoryGirl.create :service_rule, :regex, url: '^https://.*'
+              FactoryBot.create :service_rule, :regex, url: '^https://.*'
             end
             let(:service) { 'http://www.example.org/' }
 
@@ -427,7 +427,7 @@ describe CASino::SessionsController do
     let(:params) { { :url => url } }
 
     context 'with an existing ticket-granting ticket' do
-      let(:ticket_granting_ticket) { FactoryGirl.create :ticket_granting_ticket }
+      let(:ticket_granting_ticket) { FactoryBot.create :ticket_granting_ticket }
 
       before(:each) do
         sign_in(ticket_granting_ticket)
@@ -465,7 +465,7 @@ describe CASino::SessionsController do
 
         context 'when not whitelisted' do
           before(:each) do
-            FactoryGirl.create :service_rule, :regex, url: '^https://.*'
+            FactoryBot.create :service_rule, :regex, url: '^https://.*'
           end
 
           it 'renders the logout template' do
@@ -496,7 +496,7 @@ describe CASino::SessionsController do
       end
 
       describe 'two-factor authenticator settings' do
-        let(:ticket_granting_ticket) { FactoryGirl.create :ticket_granting_ticket }
+        let(:ticket_granting_ticket) { FactoryBot.create :ticket_granting_ticket }
         let(:user) { ticket_granting_ticket.user }
 
         context 'without a two-factor authenticator registered' do
@@ -507,7 +507,7 @@ describe CASino::SessionsController do
         end
 
         context 'with an inactive two-factor authenticator' do
-          let!(:two_factor_authenticator) { FactoryGirl.create :two_factor_authenticator, :inactive, user: user }
+          let!(:two_factor_authenticator) { FactoryBot.create :two_factor_authenticator, :inactive, user: user }
 
           it 'does not assign any two-factor authenticators' do
             get :index, request_options
@@ -516,8 +516,8 @@ describe CASino::SessionsController do
         end
 
         context 'with a two-factor authenticator registered' do
-          let(:two_factor_authenticator) { FactoryGirl.create :two_factor_authenticator, user: user }
-          let!(:other_two_factor_authenticator) { FactoryGirl.create :two_factor_authenticator }
+          let(:two_factor_authenticator) { FactoryBot.create :two_factor_authenticator, user: user }
+          let!(:other_two_factor_authenticator) { FactoryBot.create :two_factor_authenticator }
 
           it 'does assign the two-factor authenticator' do
             get :index, request_options
@@ -527,11 +527,11 @@ describe CASino::SessionsController do
       end
 
       describe 'sessions overview' do
-        let!(:other_ticket_granting_ticket) { FactoryGirl.create :ticket_granting_ticket }
+        let!(:other_ticket_granting_ticket) { FactoryBot.create :ticket_granting_ticket }
         let(:user) { other_ticket_granting_ticket.user }
 
         context 'as user owning the other ticket granting ticket' do
-          let(:ticket_granting_ticket) { FactoryGirl.create :ticket_granting_ticket, user: user }
+          let(:ticket_granting_ticket) { FactoryBot.create :ticket_granting_ticket, user: user }
 
           it 'assigns both ticket granting tickets' do
             get :index, request_options
@@ -540,7 +540,7 @@ describe CASino::SessionsController do
         end
 
         context 'with a ticket-granting ticket with same username but different authenticator' do
-          let(:ticket_granting_ticket) { FactoryGirl.create :ticket_granting_ticket }
+          let(:ticket_granting_ticket) { FactoryBot.create :ticket_granting_ticket }
           let(:tgt) { ticket_granting_ticket.ticket }
 
           it 'does not assign the other ticket granting ticket' do
@@ -560,7 +560,7 @@ describe CASino::SessionsController do
   end
 
   describe 'DELETE "destroy"' do
-    let(:owner_ticket_granting_ticket) { FactoryGirl.create :ticket_granting_ticket }
+    let(:owner_ticket_granting_ticket) { FactoryBot.create :ticket_granting_ticket }
     let(:user) { owner_ticket_granting_ticket.user }
 
     before(:each) do
@@ -568,9 +568,9 @@ describe CASino::SessionsController do
     end
 
     context 'with an existing ticket-granting ticket' do
-      let!(:ticket_granting_ticket) { FactoryGirl.create :ticket_granting_ticket, user: user }
-      let(:service_ticket) { FactoryGirl.create :service_ticket, ticket_granting_ticket: ticket_granting_ticket }
-      let(:consumed_service_ticket) { FactoryGirl.create :service_ticket, :consumed, ticket_granting_ticket: ticket_granting_ticket }
+      let!(:ticket_granting_ticket) { FactoryBot.create :ticket_granting_ticket, user: user }
+      let(:service_ticket) { FactoryBot.create :service_ticket, ticket_granting_ticket: ticket_granting_ticket }
+      let(:consumed_service_ticket) { FactoryBot.create :service_ticket, :consumed, ticket_granting_ticket: ticket_granting_ticket }
       let(:params) { { id: ticket_granting_ticket.id } }
 
       it 'deletes exactly one ticket-granting ticket' do
@@ -605,7 +605,7 @@ describe CASino::SessionsController do
     end
 
     context 'when trying to delete ticket-granting ticket of another user' do
-      let!(:ticket_granting_ticket) { FactoryGirl.create :ticket_granting_ticket }
+      let!(:ticket_granting_ticket) { FactoryBot.create :ticket_granting_ticket }
       let(:params) { { id: ticket_granting_ticket.id } }
 
       it 'does not delete a ticket-granting ticket' do
@@ -626,10 +626,10 @@ describe CASino::SessionsController do
     let(:params) { { :service => url } }
 
     context 'with an existing ticket-granting ticket' do
-      let(:user) { FactoryGirl.create :user }
-      let!(:other_users_ticket_granting_tickets) { FactoryGirl.create_list :ticket_granting_ticket, 3 }
-      let!(:other_ticket_granting_tickets) { FactoryGirl.create_list :ticket_granting_ticket, 3, user: user }
-      let!(:ticket_granting_ticket) { FactoryGirl.create :ticket_granting_ticket, user: user }
+      let(:user) { FactoryBot.create :user }
+      let!(:other_users_ticket_granting_tickets) { FactoryBot.create_list :ticket_granting_ticket, 3 }
+      let!(:other_ticket_granting_tickets) { FactoryBot.create_list :ticket_granting_ticket, 3, user: user }
+      let!(:ticket_granting_ticket) { FactoryBot.create :ticket_granting_ticket, user: user }
 
       before(:each) do
         sign_in(ticket_granting_ticket)

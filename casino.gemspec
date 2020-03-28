@@ -23,6 +23,9 @@ Gem::Specification.new do |s|
     s.cert_chain  = ['casino-public_cert.pem']
   end
 
+  s.add_development_dependency 'rails', '~> 5.2.4'
+  s.add_development_dependency 'factory_bot_rails'
+
   s.add_development_dependency 'capybara', '~> 2.1'
   s.add_development_dependency 'rake', '~> 10.0'
   s.add_development_dependency 'rspec', '~> 3.0'
@@ -33,7 +36,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'webmock', '~> 1.9'
   s.add_development_dependency 'coveralls', '~> 0.7'
 
-  s.add_runtime_dependency 'rails', '>= 4.1.0', '< 4.3.0'
+  s.add_runtime_dependency 'rails', '>= 4.1.0'#, '< 4.3.0'
   s.add_runtime_dependency 'sass-rails', '>= 4.0.0', '< 6.0.0'
   s.add_runtime_dependency 'addressable', '~> 2.3'
   s.add_runtime_dependency 'terminal-table', '~> 1.4'
